@@ -1,6 +1,7 @@
 //基本設定用常數
 const express = require('express')
 const exphbs = require('express-handlebars')
+const Handlebars = require("handlebars")
 const bodyParser = require('body-parser')
 const Record = require('./models/record')
 const mongoose = require('mongoose')
@@ -17,6 +18,14 @@ db.on('error', () => {
 // 連線成功
 db.once('open', () => {
   console.log('mongodb connected!')
+})
+
+
+Handlebars.registerHelper('if_equal', function (item, expectedItem, options) {
+  if (item === expectedItem) {
+    return options.fn(this);
+  }
+  return options.inverse(this);
 })
 
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -61,12 +70,39 @@ app.post('/records', (req, res) => {
 
 // 修改 Record 頁面
 app.get('/records/:id/edit', (req, res) => {
-  res.send('修改 Record 頁面')
+  console.log(req.params)
+  Record.findById(req.params.id, (err, record) => {
+    if (err) return console.error(err)
+    let time = record.date
+    let year = time.getFullYear()
+    let month = time.getMonth() + 1
+    if (month < 10) {
+      month = "0" + month
+    }
+    let day = time.getDate()
+    let date = `${year}-${month}-${day}`
+
+    return res.render('edit', { record: record, date: date })
+  })
 })
+
+
 // 修改 Record
 app.post('/records/:id/edit', (req, res) => {
-  res.send('修改 Record')
+  console.log(req.params)
+  Record.findById(req.params.id, (err, record) => {
+    if (err) return console.error(err)
+    record.name = req.body.name
+    record.date = req.body.date
+    record.category = req.body.category
+    record.amount = req.body.amount
+    record.save(err => {
+      if (err) return console.error(err)
+      return res.redirect('/')
+    })
+  })
 })
+
 // 刪除 Record
 app.post('/records/:id/delete', (req, res) => {
   res.send('刪除 Record')
