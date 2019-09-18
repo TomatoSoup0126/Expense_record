@@ -1,6 +1,7 @@
 //基本設定用常數
 const express = require('express')
 const exphbs = require('express-handlebars')
+const bodyParser = require('body-parser')
 const Record = require('./models/record')
 const mongoose = require('mongoose')
 const app = express()
@@ -18,6 +19,7 @@ db.once('open', () => {
   console.log('mongodb connected!')
 })
 
+app.use(bodyParser.urlencoded({ extended: true }))
 
 //定義模板引擎
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
@@ -43,8 +45,20 @@ app.get('/records/new', (req, res) => {
 
 // 新增一筆  Record
 app.post('/records', (req, res) => {
-  res.send('建立 Record')
+  const record = new Record({
+    name: req.body.name,
+    date: req.body.date,
+    category: req.body.category,
+    amount: req.body.amount,
+  })
+
+  record.save(err => {
+    if (err) return console.error(err)
+    return res.redirect('/')
+  })
 })
+
+
 // 修改 Record 頁面
 app.get('/records/:id/edit', (req, res) => {
   res.send('修改 Record 頁面')
