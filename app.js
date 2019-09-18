@@ -27,7 +27,11 @@ app.set('view engine', 'handlebars')
 app.get('/', (req, res) => {
   Record.find((err, records) => {
     if (err) return console.error(err)
-    return res.render('index', { records: records })
+    let totalAmount = 0
+    records.forEach(record => {
+      totalAmount += record.amount
+    })
+    return res.render('index', { records: records, totalAmount: totalAmount })
   })
 })
 
