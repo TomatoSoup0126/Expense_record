@@ -35,14 +35,12 @@ app.get('/', (req, res) => {
   })
 })
 
-// 列出全部 Record
-app.get('/records', (req, res) => {
-  res.send('列出所有 Record')
-})
 // 新增一筆 Record 頁面
 app.get('/records/new', (req, res) => {
-  res.send('新增 Record 頁面')
+  return res.render('new')
 })
+
+
 // 新增一筆  Record
 app.post('/records', (req, res) => {
   res.send('建立 Record')
