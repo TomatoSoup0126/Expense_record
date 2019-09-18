@@ -105,7 +105,13 @@ app.post('/records/:id/edit', (req, res) => {
 
 // 刪除 Record
 app.post('/records/:id/delete', (req, res) => {
-  res.send('刪除 Record')
+  Record.findById(req.params.id, (err, record) => {
+    if (err) return console.error(err)
+    record.remove(err => {
+      if (err) return console.error(err)
+      return res.redirect('/')
+    })
+  })
 })
 
 
