@@ -1,6 +1,7 @@
 //基本設定用常數
 const express = require('express')
 const exphbs = require('express-handlebars')
+const Record = require('./models/record')
 const mongoose = require('mongoose')
 const app = express()
 const port = 3000
@@ -26,6 +27,41 @@ app.set('view engine', 'handlebars')
 app.get('/', (req, res) => {
   res.render('index')
 })
+
+// Record 首頁
+app.get('/', (req, res) => {
+  res.send('hello world!')
+})
+// 列出全部 Record
+app.get('/records', (req, res) => {
+  res.send('列出所有 Record')
+})
+// 新增一筆 Record 頁面
+app.get('/records/new', (req, res) => {
+  res.send('新增 Record 頁面')
+})
+// 顯示一筆 Record 的詳細內容
+app.get('/records/:id', (req, res) => {
+  res.send('顯示 Record 的詳細內容')
+})
+// 新增一筆  Record
+app.post('/records', (req, res) => {
+  res.send('建立 Record')
+})
+// 修改 Record 頁面
+app.get('/records/:id/edit', (req, res) => {
+  res.send('修改 Record 頁面')
+})
+// 修改 Record
+app.post('/records/:id/edit', (req, res) => {
+  res.send('修改 Record')
+})
+// 刪除 Record
+app.post('/records/:id/delete', (req, res) => {
+  res.send('刪除 Record')
+})
+
+
 
 //設定伺服器啟動
 app.listen(port, () => {
