@@ -40,10 +40,6 @@ app.get('/records', (req, res) => {
 app.get('/records/new', (req, res) => {
   res.send('新增 Record 頁面')
 })
-// 顯示一筆 Record 的詳細內容
-app.get('/records/:id', (req, res) => {
-  res.send('顯示 Record 的詳細內容')
-})
 // 新增一筆  Record
 app.post('/records', (req, res) => {
   res.send('建立 Record')
