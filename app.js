@@ -25,13 +25,12 @@ app.set('view engine', 'handlebars')
 
 //設定根目錄路由
 app.get('/', (req, res) => {
-  res.render('index')
+  Record.find((err, records) => {
+    if (err) return console.error(err)
+    return res.render('index', { records: records })
+  })
 })
 
-// Record 首頁
-app.get('/', (req, res) => {
-  res.send('hello world!')
-})
 // 列出全部 Record
 app.get('/records', (req, res) => {
   res.send('列出所有 Record')

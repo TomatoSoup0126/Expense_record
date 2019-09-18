@@ -1,1 +1,58 @@
-<h1>Project Start!</h1>
+<div class="container mt-3">
+
+
+  <div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false">
+      篩選類別
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+      <a class="dropdown-item" href="/?ref=name&sort=asc">家居物業</a>
+      <a class="dropdown-item" href="/?ref=name&sort=desc">交通出行</a>
+      <a class="dropdown-item" href="/?ref=category&sort=asc">休閒娛樂</a>
+      <a class="dropdown-item" href="/?ref=location&sort=asc">餐飲食品</a>
+      <a class="dropdown-item" href="/?ref=rating&sort=asc">其他</a>
+    </div>
+  </div>
+
+
+
+  <table class="table table-hover mt-3">
+    <thead>
+      <tr>
+        <th scope="col" class="text-center">類別</th>
+        <th scope="col" class="text-center">項目</th>
+        <th scope="col" class="text-center">時間</th>
+        <th scope="col" class="text-center">金額</th>
+        <th scope="col" class="text-center"></th>
+        <th scope="col" class="text-center"></th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each records}}
+      <tr>
+        <th scope="row" class="text-center">{{this.category}}</th>
+        <td class="text-center">{{this.name}}</td>
+        <td class="text-center">{{this.date}}</td>
+        <td class="text-center">{{this.amount}}</td>
+        <td class="text-center">
+          <span>
+            <a class="badge badge-secondary font-weight-normal" href="/restaurants/{{this.id}}/edit"><i
+                class="far fa-edit" aria-hidden="true"></i></a>
+          </span>
+        </td>
+        <td class="text-center">
+          <form action="/restaurants/{{this.id}}/delete?_method=DELETE" method="POST" style="display: inline;">
+            <button type="submit" class="badge badge-secondary font-weight-normal"><i class="far fa-trash-alt"
+                aria-hidden="true"></i></button>
+          </form>
+        </td>
+
+
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+
+
+</div>
