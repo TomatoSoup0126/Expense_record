@@ -8,6 +8,14 @@ const mongoose = require('mongoose')
 const app = express()
 const port = 3000
 
+const category2Icon = {
+  "houseware": `<i class="fas fa-home"></i>`,
+  "traffic": `<i class="fas fa-shuttle-van"></i>`,
+  "entertainment": `<i class="fas fa-grin-beam"></i>`,
+  "food": `<i class="fas fa-utensils"></i>`,
+  "other": `<i class="fas fa-pen"></i>`
+}
+
 mongoose.connect('mongodb://localhost/expenseRecord', { useNewUrlParser: true, useUnifiedTopology: true })
 const db = mongoose.connection
 
@@ -42,6 +50,7 @@ app.get('/', (req, res) => {
     records.forEach(record => {
       totalAmount += record.amount
       record.formatDate = record.date.toJSON().split('T')[0]
+      record.icon = category2Icon[record.category]
     })
     return res.render('index', { records: records, totalAmount: totalAmount })
   })

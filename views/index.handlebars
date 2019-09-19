@@ -39,7 +39,11 @@
     <tbody>
       {{#each records}}
       <tr>
-        <th scope="row" class="text-center">{{this.category}}</th>
+        <th scope="row" class="text-center">
+          <h4 class="mt-3">
+            {{{this.icon}}}
+          </h4>
+        </th>
         <td class="text-left">
           <h4>{{this.name}}</h4>
           <div>{{this.formatDate}}</div>

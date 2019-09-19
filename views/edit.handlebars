@@ -19,11 +19,12 @@
             <label for="category">類別 *</label>
             <select class="custom-select" id="category" name="category">
               <option>選擇類別...</option>
-              <option value="1" {{#if_equal record.category "1"}}selected{{/if_equal}}>家居物業</option>
-              <option value="2" {{#if_equal record.category "2"}}selected{{/if_equal}}>交通出行</option>
-              <option value="3" {{#if_equal record.category "3"}}selected{{/if_equal}}>休閒娛樂</option>
-              <option value="4" {{#if_equal record.category "4"}}selected{{/if_equal}}>餐飲食品</option>
-              <option value="5" {{#if_equal record.category "5"}}selected{{/if_equal}}>其他</option>
+              <option value="houseware" {{#if_equal record.category "houseware"}}selected{{/if_equal}}>家居物業</option>
+              <option value="traffic" {{#if_equal record.category "traffic"}}selected{{/if_equal}}>交通出行</option>
+              <option value="entertainment" {{#if_equal record.category "entertainment"}}selected{{/if_equal}}>休閒娛樂
+              </option>
+              <option value="food" {{#if_equal record.category "food"}}selected{{/if_equal}}>餐飲食品</option>
+              <option value="other" {{#if_equal record.category "other"}}selected{{/if_equal}}>其他</option>
             </select>
           </div>
           <div class="form-group">
