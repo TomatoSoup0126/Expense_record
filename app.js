@@ -9,13 +9,7 @@ const mongoose = require('mongoose')
 const app = express()
 const port = 3000
 
-const category2Icon = {
-  "houseware": `<i class="fas fa-home"></i>`,
-  "traffic": `<i class="fas fa-shuttle-van"></i>`,
-  "entertainment": `<i class="fas fa-grin-beam"></i>`,
-  "food": `<i class="fas fa-utensils"></i>`,
-  "other": `<i class="fas fa-pen"></i>`
-}
+
 
 mongoose.connect('mongodb://localhost/expenseRecord', { useNewUrlParser: true, useUnifiedTopology: true })
 const db = mongoose.connection
