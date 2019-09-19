@@ -3,6 +3,7 @@ const express = require('express')
 const router = express.Router()
 const User = require('../models/user')
 
+
 // 登入頁面
 router.get('/login', (req, res) => {
   res.render('login')
@@ -20,7 +21,30 @@ router.get('/register', (req, res) => {
 
 // 註冊檢查
 router.post('/register', (req, res) => {
-  res.send('register')
+  const { name, email, password, password2 } = req.body
+  User.findOne({ email: email }).then(user => {
+    if (user) {
+      console.log('User already exists')
+      res.render('register', {
+        name,
+        email,
+        password,
+        password2
+      })
+    } else {
+      const newUser = new User({
+        name,
+        email,
+        password
+      })
+      newUser
+        .save()
+        .then(user => {
+          res.redirect('/')                         // 新增完成導回首頁
+        })
+        .catch(err => console.log(err))
+    }
+  })
 })
 
 // 登出
