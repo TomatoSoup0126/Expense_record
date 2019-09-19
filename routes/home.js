@@ -2,6 +2,8 @@ const express = require('express')
 const router = express.Router()
 const Record = require('../models/record')
 
+const { authenticated } = require('../config/auth')
+
 const category2Icon = {
   "houseware": `<i class="fas fa-home"></i>`,
   "traffic": `<i class="fas fa-shuttle-van"></i>`,
@@ -10,7 +12,7 @@ const category2Icon = {
   "other": `<i class="fas fa-pen"></i>`
 }
 
-router.get('/', (req, res) => {
+router.get('/', authenticated, (req, res) => {
   filterObject = {}
   if (req.query.category) {
     filterObject.category = req.query.category
