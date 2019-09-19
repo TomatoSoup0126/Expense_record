@@ -44,7 +44,11 @@ app.set('view engine', 'handlebars')
 
 //設定根目錄路由
 app.get('/', (req, res) => {
-  Record.find({})
+  filterObject = {}
+  if (req.query.category) {
+    filterObject.category = req.query.category
+  }
+  Record.find(filterObject)
     .sort({ date: 'desc' })
     .exec((err, records) => {
       if (err) return console.error(err)
