@@ -4,7 +4,7 @@ const exphbs = require('express-handlebars')
 const Handlebars = require("handlebars")
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
-const Record = require('./models/record')
+const session = require('express-session')
 const mongoose = require('mongoose')
 const app = express()
 const port = 3000
@@ -36,10 +36,15 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
-
+app.use(session({
+  secret: 'show me my money',
+  resave: false,
+  saveUninitialized: true,
+}))
 app.use('/', require('./routes/home'))
 app.use('/records', require('./routes/record'))
 app.use('/users', require('./routes/user'))
+
 
 //設定伺服器啟動
 app.listen(port, () => {
