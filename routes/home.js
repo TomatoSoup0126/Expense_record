@@ -13,7 +13,7 @@ const category2Icon = {
 }
 
 router.get('/', authenticated, (req, res) => {
-  filterObject = {}
+  filterObject = { userId: req.user._id }
   if (req.query.category) {
     filterObject.category = req.query.category
   }
