@@ -39,6 +39,7 @@ app.set('view engine', 'handlebars')
 
 app.use('/', require('./routes/home'))
 app.use('/records', require('./routes/record'))
+app.use('/users', require('./routes/user'))
 
 //設定伺服器啟動
 app.listen(port, () => {
