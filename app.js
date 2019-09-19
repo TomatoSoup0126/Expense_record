@@ -42,94 +42,9 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
-//設定根目錄路由
-app.get('/', (req, res) => {
-  filterObject = {}
-  if (req.query.category) {
-    filterObject.category = req.query.category
-  }
-  Record.find(filterObject)
-    .sort({ date: 'desc' })
-    .exec((err, records) => {
-      if (err) return console.error(err)
-      let totalAmount = 0
-      records.forEach(record => {
-        totalAmount += record.amount
-        record.formatDate = record.date.toJSON().split('T')[0]
-        record.icon = category2Icon[record.category]
-      })
-      return res.render('index', { records: records, totalAmount: totalAmount })
-    })
-})
 
-// 新增一筆 Record 頁面
-app.get('/records/new', (req, res) => {
-  return res.render('new')
-})
-
-
-// 新增一筆  Record
-app.post('/records', (req, res) => {
-  const record = new Record({
-    name: req.body.name,
-    date: req.body.date,
-    category: req.body.category,
-    amount: req.body.amount,
-  })
-
-  record.save(err => {
-    if (err) return console.error(err)
-    return res.redirect('/')
-  })
-})
-
-
-// 修改 Record 頁面
-app.get('/records/:id/edit', (req, res) => {
-  Record.findById(req.params.id, (err, record) => {
-    if (err) return console.error(err)
-    let time = record.date
-    let year = time.getFullYear()
-    let month = time.getMonth() + 1
-    if (month < 10) {
-      month = "0" + month
-    }
-    let day = time.getDate()
-    let date = `${year}-${month}-${day}`
-
-    return res.render('edit', { record: record, date: date })
-  })
-})
-
-
-// 修改 Record
-app.put('/records/:id', (req, res) => {
-
-  Record.findById(req.params.id, (err, record) => {
-    if (err) return console.error(err)
-    record.name = req.body.name
-    record.date = req.body.date
-    record.category = req.body.category
-    record.amount = req.body.amount
-    record.save(err => {
-      if (err) return console.error(err)
-      return res.redirect('/')
-    })
-  })
-})
-
-// 刪除 Record
-app.delete('/records/:id/delete', (req, res) => {
-  Record.findById(req.params.id, (err, record) => {
-    if (err) return console.error(err)
-    record.remove(err => {
-      if (err) return console.error(err)
-      return res.redirect('/')
-    })
-  })
-})
-
-
+app.use('/', require('./routes/home'))
+app.use('/records', require('./routes/record'))
 
 //設定伺服器啟動
 app.listen(port, () => {
