@@ -3,6 +3,7 @@ const express = require('express')
 const exphbs = require('express-handlebars')
 const Handlebars = require("handlebars")
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
 const Record = require('./models/record')
 const mongoose = require('mongoose')
 const app = express()
@@ -36,9 +37,8 @@ Handlebars.registerHelper('if_equal', function (item, expectedItem, options) {
   return options.inverse(this);
 })
 
+app.use(methodOverride('_method'))
 app.use(bodyParser.urlencoded({ extended: true }))
-
-//定義模板引擎
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
@@ -103,7 +103,7 @@ app.get('/records/:id/edit', (req, res) => {
 
 
 // 修改 Record
-app.post('/records/:id/edit', (req, res) => {
+app.put('/records/:id', (req, res) => {
 
   Record.findById(req.params.id, (err, record) => {
     if (err) return console.error(err)
@@ -119,7 +119,7 @@ app.post('/records/:id/edit', (req, res) => {
 })
 
 // 刪除 Record
-app.post('/records/:id/delete', (req, res) => {
+app.delete('/records/:id/delete', (req, res) => {
   Record.findById(req.params.id, (err, record) => {
     if (err) return console.error(err)
     record.remove(err => {
