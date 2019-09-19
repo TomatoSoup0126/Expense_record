@@ -41,6 +41,7 @@ app.get('/', (req, res) => {
     let totalAmount = 0
     records.forEach(record => {
       totalAmount += record.amount
+      record.formatDate = record.date.toJSON().split('T')[0]
     })
     return res.render('index', { records: records, totalAmount: totalAmount })
   })

@@ -26,12 +26,11 @@
 
 
 
-  <table class="table table-hover mt-3">
+  <table class="table table-hover table-striped mt-3">
     <thead>
       <tr>
         <th scope="col" class="text-center">類別</th>
-        <th scope="col" class="text-center">項目</th>
-        <th scope="col" class="text-center">時間</th>
+        <th scope="col" class="text-left">項目</th>
         <th scope="col" class="text-center">金額</th>
         <th scope="col" class="text-center"></th>
         <th scope="col" class="text-center"></th>
@@ -41,8 +40,11 @@
       {{#each records}}
       <tr>
         <th scope="row" class="text-center">{{this.category}}</th>
-        <td class="text-center">{{this.name}}</td>
-        <td class="text-center">{{this.date}}</td>
+        <td class="text-left">
+          <h4>{{this.name}}</h4>
+          <div>{{this.formatDate}}</div>
+        </td>
+
         <td class="text-center">{{this.amount}}</td>
         <td class="text-center">
           <span>
