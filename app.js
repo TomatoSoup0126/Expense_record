@@ -10,7 +10,9 @@ const passport = require('passport')
 const app = express()
 const port = 3000
 
-
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 
 mongoose.connect('mongodb://localhost/expenseRecord', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 const db = mongoose.connection
@@ -57,6 +59,7 @@ app.use((req, res, next) => {
 app.use('/', require('./routes/home'))
 app.use('/records', require('./routes/record'))
 app.use('/users', require('./routes/user'))
+app.use('/auth', require('./routes/auths'))
 
 
 
