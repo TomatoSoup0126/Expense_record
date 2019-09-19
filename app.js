@@ -44,16 +44,18 @@ app.set('view engine', 'handlebars')
 
 //設定根目錄路由
 app.get('/', (req, res) => {
-  Record.find((err, records) => {
-    if (err) return console.error(err)
-    let totalAmount = 0
-    records.forEach(record => {
-      totalAmount += record.amount
-      record.formatDate = record.date.toJSON().split('T')[0]
-      record.icon = category2Icon[record.category]
+  Record.find({})
+    .sort({ date: 'desc' })
+    .exec((err, records) => {
+      if (err) return console.error(err)
+      let totalAmount = 0
+      records.forEach(record => {
+        totalAmount += record.amount
+        record.formatDate = record.date.toJSON().split('T')[0]
+        record.icon = category2Icon[record.category]
+      })
+      return res.render('index', { records: records, totalAmount: totalAmount })
     })
-    return res.render('index', { records: records, totalAmount: totalAmount })
-  })
 })
 
 // 新增一筆 Record 頁面
@@ -80,7 +82,6 @@ app.post('/records', (req, res) => {
 
 // 修改 Record 頁面
 app.get('/records/:id/edit', (req, res) => {
-  console.log(req.params)
   Record.findById(req.params.id, (err, record) => {
     if (err) return console.error(err)
     let time = record.date
@@ -99,7 +100,7 @@ app.get('/records/:id/edit', (req, res) => {
 
 // 修改 Record
 app.post('/records/:id/edit', (req, res) => {
-  console.log(req.params)
+
   Record.findById(req.params.id, (err, record) => {
     if (err) return console.error(err)
     record.name = req.body.name
