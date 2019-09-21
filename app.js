@@ -9,13 +9,12 @@ const mongoose = require('mongoose')
 const passport = require('passport')
 const flash = require('connect-flash')
 const app = express()
-const port = 3000
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
 }
 
-mongoose.connect('mongodb://localhost/expenseRecord', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/expenseRecord', { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 const db = mongoose.connection
 
 db.on('error', () => {
@@ -69,6 +68,6 @@ app.use('/auth', require('./routes/auths'))
 
 
 //設定伺服器啟動
-app.listen(port, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log(`Express app listening on port ${port}.`)
 })
