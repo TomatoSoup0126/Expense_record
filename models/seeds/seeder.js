@@ -35,6 +35,7 @@ db.once('open', () => {
               userId: users._id,
               name: recordList.results[j].name,
               category: recordList.results[j].category,
+              merchant: recordList.results[j].merchant,
               amount: recordList.results[j].amount,
               date: recordList.results[j].date
             })
