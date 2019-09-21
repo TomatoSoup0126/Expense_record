@@ -12,6 +12,7 @@
 </head>
 
 <body>
+
   <header>
     <nav class="navbar navbar-light bg-light">
       <div class="container">
@@ -20,14 +21,17 @@
             <i class="fas fa-dollar-sign"></i>
             私房錢的下落
           </a>
+          {{#if user}}
+          <span>嗨 {{user.name}} 今天私房錢化為什麼了呢？</span>
+          {{else}}
           <span>"錢沒有不見，只是換個樣子伴你身旁"</span>
+          {{/if}}
+
         </div>
 
       </div>
       <div>{{#if isAuthenticated}}
         <a href="/users/logout" class="btn btn-outline-secondary">Logout</a>
-        {{else}}
-        <a href="/users/login" class="btn btn-outline-secondary">Login</a>
         {{/if}}
       </div>
     </nav>

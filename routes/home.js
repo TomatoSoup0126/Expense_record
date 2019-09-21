@@ -12,10 +12,20 @@ const category2Icon = {
   "other": `<i class="fas fa-pen"></i>`
 }
 
+const category2chinese = {
+  "houseware": "居家業務",
+  "traffic": "交通出行",
+  "entertainment": "休閒娛樂",
+  "food": "餐飲食品",
+  "other": "其他"
+}
+
 router.get('/', authenticated, (req, res) => {
-  filterObject = { userId: req.user._id }
+  let user = req.user
+  let category = req.query.category
+  let filterObject = { userId: req.user._id }
   if (req.query.category) {
-    filterObject.category = req.query.category
+    filterObject.category = category
   }
   Record.find(filterObject)
     .sort({ date: 'desc' })
@@ -27,7 +37,7 @@ router.get('/', authenticated, (req, res) => {
         record.formatDate = record.date.toJSON().split('T')[0]
         record.icon = category2Icon[record.category]
       })
-      return res.render('index', { records: records, totalAmount: totalAmount })
+      return res.render('index', { records: records, totalAmount: totalAmount, user: user, category: category2chinese[category] })
     })
 })
 

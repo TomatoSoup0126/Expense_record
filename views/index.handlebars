@@ -1,8 +1,11 @@
 <div class="container mt-3">
   <div class="d-flex justify-content-between">
     <div></div>
-
+    {{#if category}}
+    <h2>{{category}}的總花費：${{totalAmount}}</h2>
+    {{else}}
     <h2>總花費：${{totalAmount}}</h2>
+    {{/if}}
     <div class="d-flex">
       <a href="/records/new" class="mr-2">
         <button type="button" class="btn btn-secondary">新增支出</button>
@@ -13,7 +16,7 @@
           篩選類別
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="/">全都要</a>
+          <a class="dropdown-item" href="/">全部</a>
           <a class="dropdown-item" href="/?category=houseware">家居物業</a>
           <a class="dropdown-item" href="/?category=traffic">交通出行</a>
           <a class="dropdown-item" href="/?category=entertainment">休閒娛樂</a>
@@ -55,15 +58,16 @@
             ${{this.amount}}
           </h4>
         </td>
-        <td class="text-center">
-          <span>
-            <a class="badge badge-secondary font-weight-normal mt-4" href="/records/{{this.id}}/edit"><i
-                class="far fa-edit" aria-hidden="true"></i></a>
-          </span>
+        <td class="text-right">
+          <form action="/records/{{this.id}}/edit" method="GET" style="display: inline;">
+            <button type="submit" class="btn btn-outline-info font-weight-normal mt-2"><i class="far fa-edit"
+                aria-hidden="true"></i>
+            </button>
+          </form>
         </td>
-        <td class="text-center">
+        <td class="text-left">
           <form action="/records/{{this.id}}/delete?_method=DELETE" method="POST" style="display: inline;">
-            <button type="submit" class="badge badge-secondary font-weight-normal mt-4"><i class="far fa-trash-alt"
+            <button type="submit" class="btn btn-outline-danger font-weight-normal mt-2"><i class="far fa-trash-alt"
                 aria-hidden="true"></i>
             </button>
           </form>
