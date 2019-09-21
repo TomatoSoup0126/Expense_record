@@ -58,13 +58,7 @@ password: 12345
   FACEBOOK_SECRET=自己的應用程式密鑰
   FACEBOOK_CALLBACK=http://localhost:3000/auth/facebook/callback
   ```
-  [GitHub](https://developer.github.com/apps/building-oauth-apps/):
-  ```
-  GITHUB_ID=自己的應用程式編號
-  GITHUB_SECRET=自己的應用程式編號
-  GITHUB_CALLBACK=http://localhost:3000/auth/github/callback
-  ```
-
+  
 ### 啟動mangoDB
 - macOS於終端機下移動至mangoDB資料夾下 `$ cd mongodb/bin`
 
