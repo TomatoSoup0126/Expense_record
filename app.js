@@ -69,5 +69,5 @@ app.use('/auth', require('./routes/auths'))
 
 //設定伺服器啟動
 app.listen(process.env.PORT || 3000, () => {
-  console.log(`Express app listening on port ${port}.`)
+  console.log(`Express app listening on port.`)
 })
