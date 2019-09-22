@@ -20,13 +20,74 @@ const category2chinese = {
   "other": "其他"
 }
 
+const monthRange = {
+  "1": {
+    $gte: new Date('2019-01-01'),
+    $lte: new Date('2019-01-31')
+  },
+  "2": {
+    $gte: new Date('2019-02-01'),
+    $lte: new Date('2019-02-28')
+  },
+  "3": {
+    $gte: new Date('2019-03-01'),
+    $lte: new Date('2019-03-31')
+  },
+  "4": {
+    $gte: new Date('2019-04-01'),
+    $lte: new Date('2019-04-30')
+  },
+  "5": {
+    $gte: new Date('2019-05-01'),
+    $lte: new Date('2019-05-31')
+  },
+  "6": {
+    $gte: new Date('2019-06-01'),
+    $lte: new Date('2019-06-30')
+  },
+  "7": {
+    $gte: new Date('2019-07-01'),
+    $lte: new Date('2019-07-31')
+  },
+  "8": {
+    $gte: new Date('2019-08-01'),
+    $lte: new Date('2019-08-31')
+  },
+  "9": {
+    $gte: new Date('2019-09-01'),
+    $lte: new Date('2019-09-30')
+  },
+  "10": {
+    $gte: new Date('2019-10-01'),
+    $lte: new Date('2019-10-31')
+  },
+  "11": {
+    $gte: new Date('2019-11-01'),
+    $lte: new Date('2019-11-30')
+  },
+  "12": {
+    $gte: new Date('2019-12-01'),
+    $lte: new Date('2019-12-31')
+  },
+}
+
+
+
 router.get('/', authenticated, (req, res) => {
   let user = req.user
   let category = req.query.category
+  let categoryQuery = req.query.category
+  let month = req.query.month
   let filterObject = { userId: req.user._id }
+
   if (req.query.category) {
     filterObject.category = category
   }
+  if (req.query.month) {
+    filterObject.date = monthRange[month]
+
+  }
+
   Record.find(filterObject)
     .sort({ date: 'desc' })
     .exec((err, records) => {
@@ -37,7 +98,14 @@ router.get('/', authenticated, (req, res) => {
         record.formatDate = record.date.toJSON().split('T')[0]
         record.icon = category2Icon[record.category]
       })
-      return res.render('index', { records: records, totalAmount: totalAmount, user: user, category: category2chinese[category] })
+      return res.render('index', {
+        records: records,
+        totalAmount: totalAmount,
+        user: user,
+        category: category2chinese[category],
+        month: month,
+        categoryQuery: categoryQuery
+      })
     })
 })
 
