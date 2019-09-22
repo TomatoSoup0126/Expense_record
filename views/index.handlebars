@@ -4,7 +4,9 @@
     {{#if category}}
     <h2>{{category}}的總花費：${{totalAmount}}</h2>
     {{else}}
-    <h2>總花費：${{totalAmount}}</h2>
+    <h2>總花費：
+      <span class="text-warning h2">${{totalAmount}}</span>
+    </h2>
     {{/if}}
     <div class="d-flex">
       <a href="/records/new" class="mr-2">
