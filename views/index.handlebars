@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-between">
 
     {{#if category}}
-    <h2>{{category}}的總花費：
+    <h2>{{category}}的 總花費：
       <span class="text-warning h2">${{totalAmount}}</span>
     </h2>
     {{else}}
@@ -12,7 +12,7 @@
     {{/if}}
     <div class="d-flex">
       <a href="/records/new" class="mr-2">
-        <button type="button" class="btn btn-secondary">新增支出</button>
+        <button type="button" class="btn btn-warning"><i class="fas fa-plus"></i> 新增支出</button>
       </a>
       <div class="dropdown mr-2">
         <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
