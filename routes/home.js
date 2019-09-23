@@ -20,6 +20,21 @@ const category2chinese = {
   "other": "其他"
 }
 
+const month2chinese = {
+  '1': '一月',
+  '2': '二月',
+  '3': '三月',
+  '4': '四月',
+  '5': '五月',
+  '6': '六月',
+  '7': '七月',
+  '8': '八月',
+  '9': '九月',
+  '10': '十月',
+  '11': '十一月',
+  '12': '十二月'
+}
+
 const monthRange = {
   "1": {
     $gte: new Date('2019-01-01'),
@@ -73,20 +88,28 @@ const monthRange = {
 
 
 
+
 router.get('/', authenticated, (req, res) => {
   let user = req.user
   let category = req.query.category
   let categoryQuery = req.query.category
   let month = req.query.month
+  let monthQuery = req.query.month
+  let duoQuery = ''
   let filterObject = { userId: req.user._id }
+
 
   if (req.query.category) {
     filterObject.category = category
   }
   if (req.query.month) {
     filterObject.date = monthRange[month]
-
   }
+
+  if (req.query.category && req.query.month) {
+    duoQuery = `${month2chinese[month]} ＆ ${category2chinese[category]} 的`
+  }
+
 
   Record.find(filterObject)
     .sort({ date: 'desc' })
@@ -103,8 +126,10 @@ router.get('/', authenticated, (req, res) => {
         totalAmount: totalAmount,
         user: user,
         category: category2chinese[category],
-        month: month,
-        categoryQuery: categoryQuery
+        month: month2chinese[month],
+        categoryQuery: categoryQuery,
+        monthQuery: monthQuery,
+        duoQuery: duoQuery
       })
     })
 })
