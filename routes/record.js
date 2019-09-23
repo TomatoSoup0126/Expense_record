@@ -15,6 +15,7 @@ router.post('/', authenticated, (req, res) => {
     name: req.body.name,
     date: req.body.date,
     category: req.body.category,
+    merchant: req.body.merchant,
     amount: req.body.amount,
     userId: req.user._id
   })
@@ -50,6 +51,7 @@ router.put('/:id', authenticated, (req, res) => {
     record.name = req.body.name
     record.date = req.body.date
     record.category = req.body.category
+    record.merchant = req.body.merchant
     record.amount = req.body.amount
     record.save(err => {
       if (err) return console.error(err)
