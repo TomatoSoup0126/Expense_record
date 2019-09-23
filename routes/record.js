@@ -35,9 +35,12 @@ router.get('/:id/edit', authenticated, (req, res) => {
     let year = time.getFullYear()
     let month = time.getMonth() + 1
     if (month < 10) {
-      month = "0" + month
+      month = month.toString().padStart(2, "0")
     }
     let day = time.getDate()
+    if (day < 10) {
+      day = day.toString().padStart(2, "0")
+    }
     let date = `${year}-${month}-${day}`
 
     return res.render('edit', { record: record, date: date })
