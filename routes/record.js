@@ -11,19 +11,38 @@ router.get('/new', authenticated, (req, res) => {
 
 // 新增一筆  Record
 router.post('/', authenticated, (req, res) => {
-  const record = new Record({
-    name: req.body.name,
-    date: req.body.date,
-    category: req.body.category,
-    merchant: req.body.merchant,
-    amount: req.body.amount,
-    userId: req.user._id
-  })
+  const { name, date, category, merchant, amount } = req.body
 
-  record.save(err => {
-    if (err) return console.error(err)
-    return res.redirect('/')
-  })
+  let errors = []
+
+  if (!name || !date || !category || !amount) {
+    errors.push({ message: '必填欄位未填' })
+  }
+
+  if (errors.length > 0) {
+    res.render('new', {
+      errors,
+      name,
+      date,
+      category,
+      merchant,
+      amount
+    })
+  } else {
+    const record = new Record({
+      name: req.body.name,
+      date: req.body.date,
+      category: req.body.category,
+      merchant: req.body.merchant,
+      amount: req.body.amount,
+      userId: req.user._id
+    })
+
+    record.save(err => {
+      if (err) return console.error(err)
+      return res.redirect('/')
+    })
+  }
 })
 
 
