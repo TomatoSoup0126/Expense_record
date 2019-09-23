@@ -96,17 +96,17 @@
         <td class="text-left">
           <!-- Button trigger modal -->
           <button type="button" class="btn btn-outline-danger font-weight-normal mt-2" data-toggle="modal"
-            data-target="#{{this.name}}Modal">
+            data-target="#modalOf{{this.name}}">
             <i class="far fa-trash-alt" aria-hidden="true"></i>
           </button>
 
           <!-- Modal -->
-          <div class="modal fade" id="{{this.name}}Modal" tabindex="-1" role="dialog"
-            aria-labelledby="{{this.name}}ModalLabel" aria-hidden="true">
+          <div class="modal fade" id="modalOf{{this.name}}" tabindex="-1" role="dialog"
+            aria-labelledby="modalLabel{{this.name}}" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="{{this.name}}ModalLabel">刪除確認</h5>
+                  <h5 class="modal-title" id="modalLabel{{this.name}}">刪除確認</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
